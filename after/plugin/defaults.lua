@@ -1,145 +1,142 @@
-vim.g.vimsyn_embed = 'lPr' -- Syntax embedding for Lua, Python and Ruby
+-- 语法嵌入
+vim.g.vimsyn_embed = 'lPr' -- 启用 Lua、Python、Ruby 的语法嵌入
 
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
--- Make line numbers default
+-- =========================
+-- 界面与显示
+-- =========================
+-- 显示行号
 vim.o.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+-- 行号设置
+vim.o.relativenumber = false
+-- 行号列宽与 sign 列
+vim.o.numberwidth = 2
+vim.o.signcolumn = 'yes'
+-- 高亮光标所在行
+vim.o.cursorline = true
+-- 标题栏显示窗口标题
+vim.o.title = true
+-- 自动换行显示长行
+vim.o.wrap = true
+-- 文本宽度（0 表示禁用自动换行限制）
+vim.o.textwidth = 0
+-- 命令行高度（用于显示信息）
+vim.o.cmdheight = 2
+-- 在命令行显示光标位置（行和列）
+vim.o.ruler = true
+-- 命令行提示信息简短显示
+vim.o.shortmess = 'c'
+vim.o.colorcolumn = '99999'
+-- 弹出菜单高度
+vim.o.pumheight = 10
+-- Markdown 等文件中显示所有字符（不隐藏）
+vim.o.conceallevel = 0
 
--- Enable mouse mode, can be useful for resizing splits for example!
+-- GUI 字体（用于图形 Neovim）
+vim.o.guifontwide = 'Heiti SC:h18'
+vim.o.guifont = 'JetBrainsMonoNL Nerd Font Mono:h16'
+
+-- =========================
+-- 鼠标、剪贴板、交互
+-- =========================
+-- 鼠标支持（在 Neovim 界面中可用鼠标操作）
 vim.o.mouse = 'a'
-
--- Don't show the mode, since it's already in the status line
-vim.o.showmode = false
-
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
+-- 鼠标支持（重复保留，未删除配置）
+vim.o.mouse = 'a'
+-- 将剪贴板与系统同步（启动后设置以避免延长启动时间）
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
+-- 操作会失败或有未保存改动时弹出确认对话框
+vim.o.confirm = true
 
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+-- =========================
+-- 搜索与查找
+-- =========================
+-- 搜索不区分大小写，除非搜索中包含大写字母
 vim.o.ignorecase = true
 vim.o.smartcase = true
+-- 搜索高亮控制（关闭高亮）
+vim.o.hlsearch = false
+-- 替换时实时预览
+vim.o.inccommand = 'split'
 
--- Keep signcolumn on by default
-vim.o.signcolumn = 'yes'
-
--- Decrease update time
-vim.o.updatetime = 250
-
--- Decrease mapped sequence wait time
-vim.o.timeoutlen = 300
-
--- Configure how new splits should be opened
-vim.o.splitright = true
-vim.o.splitbelow = true
-
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
---
---  Notice listchars is set using `vim.opt` instead of `vim.o`.
---  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
---   See `:help lua-options`
---   and `:help lua-options-guide`
+-- =========================
+-- 缩进、Tab 与空白显示
+-- =========================
+-- Tab 与缩进设置
+vim.o.tabstop = 4        -- Tab 显示为 4 个空格
+vim.o.shiftwidth = 4     -- >> << 等操作使用 4 个空格
+vim.o.smarttab = true    -- 智能 Tab 行为
+vim.o.expandtab = true   -- 使用空格替代 Tab
+vim.o.smartindent = true -- 智能缩进（基于文件类型）
+vim.o.autoindent = false -- 禁用自动继承上一行缩进（按需关闭）
+-- 显示可见的空白字符
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
--- Preview substitutions live, as you type!
-vim.o.inccommand = 'split'
+-- 允许将连字符视为单词的一部分
+vim.cmd [[set iskeyword+=-]]
 
--- Show which line your cursor is on
-vim.o.cursorline = true
+-- =========================
+-- 缓冲区、文件与备份
+-- =========================
+-- 允许在有未保存修改时切换缓冲区
+vim.o.hidden = true
+-- 兼容性与备份
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.swapfile = false
+-- 持久化撤销
+vim.o.undofile = true
 
--- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 10
+-- 文件编码显示与写入
+vim.o.encoding = 'utf-8'
+vim.o.fileencoding = 'utf-8'
 
--- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
--- instead raise a dialog asking if you wish to save the current file(s)
--- See `:help 'confirm'`
-vim.o.confirm = true
-
-
-vim.o.foldlevel = 100 -- 指定代码折叠的最高层级为 100
--- textwidth = 80                      -- 经过试验发现这个参数对于英文采用空格分隔的文本有效，如果是中文没有空格分割就没有效果
-vim.o.textwidth = 0 -- 默认值为0，主要解决markdown文件中输入的时候一行太多了自动换行
-vim.o.hidden = true -- Required to keep multiple buffers open multiple buffers 跟缓存有关，似乎是与其他app的缓存互通，可以打开和浏览
--- indowlocal.wrap = true
-vim.o.wrap = true -- Display long lines as just one line 小哥说他不喜欢一长行的行号被分割？自动折行，原小哥设置是nowrap，写一根长句子不会自动折行，一行到底
-vim.o.encoding = 'utf-8' -- The encoding displayed utf-8编码模式显示
-vim.o.pumheight = 10 -- Makes popup menu smaller 弹出窗口显示几行内容
-vim.o.fileencoding = 'utf-8' -- The encoding written to file
-vim.o.ruler = true -- Show the cursor position all the time 显示光标所在的行号和列号
-vim.o.cmdheight = 2 -- More space for displaying messags 下方命令行高度
-vim.o.mouse = 'a' -- Enable your mouse 在nvim界面可以用鼠标点击移动光标到点击位置
-vim.o.splitbelow = true -- Horizontal splits will automatically be below
-vim.o.splitright = true -- Vertical splits will automatically be to the right
-vim.o.conceallevel = 0 -- So that I can see `` in markdown files
-vim.o.tabstop = 4 -- Insert 4 spaces for a tab
-vim.o.shiftwidth = 4 -- Change the number of space characters inserted for indentation
-vim.o.smarttab = true -- Makes tabbing smarter will realize you have 2 vs 4
-vim.o.expandtab = true -- Converts tabs to spaces
--- bufferlocal.expandtab = true                         -- Converts tabs to spaces
-vim.o.smartindent = true -- Makes indenting smart文件类型自动检测
-vim.o.autoindent = false -- Good auto indent自动换行对齐
--- bufferlocal.autoindent = true
-vim.o.relativenumber = false -- 设置相对行号
-vim.o.number = true -- set numbered lines
--- indowlocal.number = true                            -- Line numbers 显示行号
--- background = "dark" -- tell vim what the background color looks like
--- showtabline = 4 -- Always show tabs
-vim.o.showmode = false -- We don't need to see things like -- INSERT -- anymore
-vim.o.backup = false -- This is recommended by coc
-vim.o.writebackup = false -- This is recommended by coc
-vim.o.updatetime = 100 -- Faster completion
-vim.o.timeoutlen = 200 -- By default timeoutlen is 1000 ms
-vim.o.clipboard = 'unnamedplus' -- Copy paste between vim and everything else app之间共享剪贴板
-vim.o.cursorline = true -- 突出显示当前行
-vim.o.laststatus = 2 -- Always display the status line
--- ivoids updating the screen before commands are completed
--- lazyredraw = true
-vim.o.shortmess = 'c'
+-- =========================
+-- 窗口分割与光标移动
+-- =========================
+-- 新窗口分割方向
+vim.o.splitright = true
+vim.o.splitbelow = true
+-- 分割窗口方向
+vim.o.splitbelow = true
+vim.o.splitright = true
+-- 允许光标在行首/行尾跨行移动
 vim.o.whichwrap = 'b,s,<,>,[,],h,l'
-vim.o.scrolloff = 8
-vim.o.sidescrolloff = 5
-vim.o.colorcolumn = '99999' -- fixes indentline for now
-vim.o.guifontwide = 'Heiti SC:h18' -- the font used in graphical neovim applications like neovim-qt
--- guifont = "Hack Nerd Font Mono:h16" -- the font used in graphical neovim applications like neovim-qt
-vim.o.guifont = 'JetBrainsMonoNL Nerd Font Mono:h16' -- the font used in graphical neovim applications
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()' -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
-vim.o.hlsearch = false -- highlight all matches on previous search pattern
-vim.o.ignorecase = true -- ignore case in search patterns
-vim.o.smartcase = true -- smart case
-vim.o.swapfile = false -- creates a swapfile
-vim.o.title = true -- set the title of window to the value of the titlestring
-vim.o.undofile = true -- enable persistent undo
-vim.o.numberwidth = 2 -- set number column width to 2 {default 4}
-vim.o.signcolumn = 'yes' -- always show the sign column ,otherwise it would shift the text each time
-
-
-
+-- 允许在行首或行尾使用方向键等跨行移动（vim.cmd 形式）
 vim.cmd 'set whichwrap+=<,>,[,],h,l'
-vim.cmd [[set iskeyword+=-]]-- treat dash separated words as a word text objec 字母含有'-'认为是一个单词
 
-vim.cmd 'filetype plugin indent on' -- 根据语言设置不同的缩进
--- setwindowlocal.signcolumn = "yes"
+-- =========================
+-- 折叠与 Treesitter
+-- =========================
+-- 折叠相关
+vim.o.foldlevel = 100 -- 默认展开折叠层级
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()' -- 使用 treesitter 进行折叠
 
--- Highlight on yank
+-- =========================
+-- 性能与响应
+-- =========================
+-- 减少更新频率（ms）
+vim.o.updatetime = 100
+-- 键序列超时（ms）
+vim.o.timeoutlen = 200
+
+-- 屏幕与滚动边距设置
+vim.o.scrolloff = 10
+vim.o.sidescrolloff = 5
+
+-- =========================
+-- 其他设置与命令
+-- =========================
+-- 不在命令行显示模式（由状态栏显示）
+vim.o.showmode = false
+
+-- 启用基于文件类型的插件与缩进
+vim.cmd 'filetype plugin indent on'
+
+-- 高亮复制的内容（Yank）
 vim.cmd [[
   augroup YankHighlight
     autocmd!
