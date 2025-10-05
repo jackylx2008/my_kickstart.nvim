@@ -776,10 +776,16 @@ require('lazy').setup({
           }
         end
       end,
+      formatters = {
+        custom_isort = {
+          command = 'isort',
+          args = { '--stdout', '-' }, -- 自定义参数
+        },
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'black' },
+        python = { 'custom_isort', 'black' },
         c = { 'clang-format' },
         cpp = { 'clang-format' },
         yaml = { 'prettier' },
