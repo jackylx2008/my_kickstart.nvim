@@ -656,6 +656,7 @@ require('lazy').setup({
           'lua_ls',
           'marksman',
           'pyright',
+          'prettier',
           'stylua',
           'yamlls',
         }, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)

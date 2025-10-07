@@ -19,11 +19,11 @@ git clone https://github.com/jackylx2008/my_kickstart.nvim.git ~/.config/nvim
 
 ### 修改日期：2025-10-07
 
-- 增加了 'Python' 'C++' 'C' 'C#' 的LSP Treesiitter AutoFormatter
+- 增加了 `Python` `C++` `C` `C#` 的LSP Treesiitter AutoFormatter
 - 文件结构重构
-- 调整了快捷键配置'after/plugin/keymaps.lua'
-- 增加调整了的设置 'after/ftplugin/c.lua cpp.lua lua.lua python.lua markdown.lua'
-- 增加针对不同文件类型的缩进设置 'after/lugin/defaults.lua'
+- 调整了快捷键配置`after/plugin/keymaps.lua`
+- 增加调整了的设置 `after/ftplugin/c.lua cpp.lua lua.lua python.lua markdown.lua`
+- 增加针对不同文件类型的缩进设置`after/lugin/defaults.lua`
 
 ## 许可证
 
