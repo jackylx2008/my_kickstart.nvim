@@ -694,10 +694,11 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = {}
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
+          print('Formatting on save triggered for:', vim.bo[bufnr].filetype)
           return {
             timeout_ms = 500,
             lsp_format = 'fallback',
@@ -976,3 +977,17 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Add manual formatting for Python and C++ on save
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.py', '*.cpp', '*.c' },
+  callback = function()
+    if vim.bo.filetype == 'python' then
+      require('conform').format { format_on_save = { lsp_format = 'fallback' }, filetypes = { 'python' } }
+    elseif vim.bo.filetype == 'cpp' then
+      require('conform').format { format_on_save = { lsp_format = 'fallback' }, filetypes = { 'cpp' } }
+    elseif vim.bo.filetype == 'c' then
+      require('conform').format { format_on_save = { lsp_format = 'fallback' }, filetypes = { 'c' } }
+    end
+  end,
+})
