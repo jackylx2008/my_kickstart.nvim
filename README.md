@@ -11,7 +11,7 @@ git clone https://github.com/jackylx2008/my_kickstart.nvim.git ~/.config/nvim
 ## 配置结构
 
 - **`init.lua`**：配置的入口文件，处理核心配置和插件管理。
-- **`after/`**：包含插件加载后的后续配置。
+- **`after/` **：包含插件加载后的后续配置。
 - **`doc/`**：文档文件，供参考。
 - **`lua/`**：自定义的 Lua 函数和模块配置，供 Neovim 使用。
 
