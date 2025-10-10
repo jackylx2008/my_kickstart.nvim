@@ -136,6 +136,8 @@ vim.o.showmode = false
 -- 启用基于文件类型的插件与缩进
 vim.cmd 'filetype plugin indent on'
 
+-- [[ Basic Autocommands ]]
+--  See `:help lua-guide-autocommands`
 -- 高亮复制的内容（Yank）
 vim.cmd [[
   augroup YankHighlight
