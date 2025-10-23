@@ -5,11 +5,15 @@ return {
     version = '*',
     -- branch = "v2.x",
     module = 'neo-tree',
-    cmd = 'Neotree',
     event = 'VeryLazy',
+    lazy = false,
     dependencies = {
-      { 'MunifTanjim/nui.nvim', module = 'nui' },
       'nvim-lua/plenary.nvim',
+      {
+        'MunifTanjim/nui.nvim',
+        module = 'nui',
+      },
+      'nvim-tree/nvim-web-devicons',
     },
     config = function()
       require 'plugins.configs.neo-tree'
@@ -136,7 +140,7 @@ return {
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
-      -- it can fuzzy find! It's more than just a "file finder", it can search
+      -- it can fuzzy find! It's more than just a "", it can search
       -- many different aspects of Neovim, your workspace, LSP, and more!
       --
       -- The easiest way to use Telescope, is to start by doing something like:
