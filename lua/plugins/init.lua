@@ -15,6 +15,7 @@ return {
       },
       'nvim-tree/nvim-web-devicons',
     },
+    vim.keymap.set('n', '<leader>e', '<Cmd>Neotree toggle<CR>', { desc = 'Neotree' }),
     config = function()
       require 'plugins.configs.neo-tree'
     end,

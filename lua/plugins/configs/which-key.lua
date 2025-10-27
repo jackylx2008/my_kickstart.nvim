@@ -45,6 +45,7 @@ return {
       { '<leader>s', group = '[S]earch' },
       { '<leader>t', group = '[T]oggle' },
       { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+      { '<leader>n', group = '[N]eotree', actions = { ['<leader>nt'] = { name = 'Toggle Neotree', command = ':Neotree toggle' } } },
     },
   },
 }
