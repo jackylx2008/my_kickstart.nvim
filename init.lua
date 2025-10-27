@@ -144,6 +144,23 @@ require('lazy').setup {
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
+-- Random colorscheme
+local colorscheme_favorite = {
+  'kanagawa',
+  'kanagawa-dragon',
+  'kanagawa-wave',
+  'duskfox',
+  'catppuccin-mocha',
+  'catppuccin-macchiato',
+  'tokyonight',
+  'tokyonight-storm',
+  'tokyonight-night',
+  'tokyonight-moon',
+}
+math.randomseed(tostring(os.time()):reverse():sub(1, 6))
+local colorscheme = colorscheme_favorite[math.random(1, #colorscheme_favorite)]
+vim.cmd.colorscheme(colorscheme)
+
 -- Add manual formatting for Python and C++ on save
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.py', '*.cpp', '*.c' },
